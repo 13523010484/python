@@ -177,5 +177,86 @@ print(f1(1))
 print(f1(2))
 print(f1(3))
 
+# 4.9.2 关键字参数
+""""kwarg=value 形式的 关键字参数 也可以用于调用函数"""
+def parrot(voltage,state='a stiff',action='voom',type='Norwegain Blue'):
+    print("-- This parrot wouldn't",action,end=' ')
+    print("if you put",voltage,"volts through it.")
+    print("-- Lovely plumage, the",type)
+    print("-- It's",state,"!")
+
+parrot(1000) # 1 个位置参数
+parrot(1000,'two stiff','apple','red')
+
+# 函数传递形参
+"""
+    kind: 第一个参数是固定的
+    *arguments: 这个参数是可变长度的,参数从第二个参数开始算起
+    **keywords: 这个参数是字典，传递参数的时候，需要以 key = value 的形式进行传递
+"""
+def cheeseshop(kind,*arguments,**keywords):
+    print("-- Do you have any",kind,"?")
+    print("-- I/m sorry, we're all out of",kind)
+    for arg in arguments:
+        print(arg)
+    print("-"*40)
+    for kw in keywords:
+        print(kw,":",keywords[kw])
 
 
+cheeseshop("Limburger", "It's very runny, sir.",
+           "It's really very, VERY runny, sir.",
+           shopkeeper="Michael Palin",
+           client="John Cleese",
+           sketch="Cheese Shop Sketch")
+
+def concat(*args,sep="/"):
+    return sep.join(args)
+
+print(concat('how','are','you'))
+print(concat('how','are','you',sep=" "))
+
+list1 = list(range(3,6))
+print('list1::',list1)
+args = [3,6]
+list2 = list(range(*args))
+print('list2::',list2)
+
+
+def parrot1(voltage, state='a stiff', action='voom'):
+    print("-- This parrot wouldn't", action, end=' ')
+    print("if you put", voltage, "volts through it.", end=' ')
+    print("E's", state, "!")
+
+d = {"voltage": "four million", "state": "bleedin' demised", "action": "VOOM"}
+parrot1(**d)
+
+
+# 4.9.6 lambda 表达式
+def make_incrementor(n):
+    return lambda x: x+n
+
+f = make_incrementor(42)
+print(f(1))
+
+pairs = [(1, 'one'), (3, 'three'),(2, 'two'),  (4, 'four')]
+pairs.sort(key=lambda pair: pair[1])
+print('pairs::',pairs)
+
+
+def my_function():
+    """Do nothing, but document it.
+    
+    No, really, it doesn't do anything.
+    """
+    pass
+
+print(my_function.__doc__)
+
+
+def f(ham:str,eggs:str='eggs') -> str:
+    print("Annotations:",f.__annotations__)
+    print("Auguments:",ham,eggs)
+    return ham + 'and' + eggs
+
+f('spam')
